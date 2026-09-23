@@ -1,0 +1,18 @@
+# Streamlit configuration for SYS.AGENT
+# Theme values here replace much of the inline CSS in app.py.
+
+[theme]
+base = "dark"
+primaryColor = "#00ff41"
+backgroundColor = "#050505"
+secondaryBackgroundColor = "#000000"
+textColor = "#00ff41"
+font = "monospace"
+
+[server]
+# Keep the agent local-only by default; it drives a Docker sandbox on this host.
+address = "127.0.0.1"
+headless = true
+
+[browser]
+gatherUsageStats = false

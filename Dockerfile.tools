@@ -1,0 +1,12 @@
+# Pre-baked sandbox image for SYS.AGENT.
+# Build:  docker build -t sysagent-tools -f Dockerfile.tools .
+# Use:    set SANDBOX_IMAGE=sysagent-tools (in .env) so scripts don't pip-install every run.
+FROM python:3.11-alpine
+
+RUN apk add --no-cache \
+      bash curl wget bind-tools nmap openssl ca-certificates git
+
+RUN pip install --no-cache-dir \
+      requests beautifulsoup4 scapy dnspython cryptography
+
+WORKDIR /workspace

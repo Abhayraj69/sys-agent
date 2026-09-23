@@ -1,0 +1,29 @@
+services:
+  sysagent:
+    build: .
+    ports:
+      # Bound to localhost only: anyone who reaches this port can drive an
+      # agent with Docker-socket access (see the warning below), so this
+      # must never be published on all interfaces (0.0.0.0/"8501:8501") on
+      # a shared or network-facing machine. Put a reverse proxy with auth
+      # in front if you need remote access.
+      - "127.0.0.1:8501:8501"
+    environment:
+      # Reach an Ollama running on the host machine.
+      - LOCAL_API_URL=http://host.docker.internal:11434/v1
+      - LOCAL_API_KEY=ollama
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # WARNING: mounting the Docker socket gives this container the
+      # equivalent of root on the host — Docker socket access is a known
+      # container-escape vector. It's required here so the app can spawn
+      # sandbox containers via the host daemon; keep this stack local-only
+      # (see the localhost-only port binding above) and never expose it
+      # beyond a machine you trust. Prefer a sibling "sandbox-runner"
+      # daemon with a restricted API instead of raw socket access if this
+      # ever needs to run on a shared or internet-facing host.
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./workspace:/app/workspace
+      - ./sessions:/app/sessions
+      - ./logs:/app/logs
