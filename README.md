@@ -1,5 +1,7 @@
 # SYS.AGENT // SECURE_SHELL
 
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Abhayraj69%2Fsys--agent-181717?logo=github)](https://github.com/Abhayraj69/sys-agent)
+
 A local, offline **AI security/coding agent**. It talks to an uncensored
 Qwen2.5-Coder model running in [Ollama](https://ollama.com), generates Python/Bash,
 and executes it inside a **hardened, throwaway Docker sandbox** — with a
